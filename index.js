@@ -37,9 +37,29 @@ module.exports = function (options) {
         });
     };
 
+    var sendPasswordResetEmail = function ({link, user, appName}) {
+        const html =
+        'Hi,' +
+        '<br><br>' +
+        'You requested to reset your password for ' +
+        appName +
+        (user.get('username')
+            ? " (your username is '" + user.get('username') + "')"
+            : '') +
+        '.' +
+        '<br><br>' +
+        'Click <a href="' + link + '">here</a> to reset it.' +
+        '<br><br>' +
+        '-The Scout Hub Team';
+        const to = user.get('email') || user.get('username');
+        const subject = 'Password Reset for ' + appName;
+        sendMail({ html, to, subject });
+    }
+
 
     return {
-        sendMail: sendMail
+        sendMail: sendMail,
+        sendPasswordResetEmail: sendPasswordResetEmail
     }
 };
 
