@@ -56,10 +56,28 @@ module.exports = function (options) {
         sendMail({ html, to, subject });
     }
 
+    var sendVerificationEmail = function ({link, user, appName}) {
+        const text =
+        'Hi,\n\n' +
+        'You are being asked to confirm the e-mail address ' +
+        user.get('email') +
+        ' with ' +
+        appName +
+        '\n\n' +
+        '' +
+        'Click <a href="' + link + '">here</a> to confirm it.' +
+        '<br><br>' +
+        '-The Scout Hub Team';
+        const to = user.get('email') || user.get('username');
+        const subject = 'Please verify your e-mail for ' + appName;
+        sendMail({ html, to, subject });
+    }
+
 
     return {
         sendMail: sendMail,
-        sendPasswordResetEmail: sendPasswordResetEmail
+        sendPasswordResetEmail: sendPasswordResetEmail,
+        sendVerificationEmail: sendVerificationEmail
     }
 };
 
