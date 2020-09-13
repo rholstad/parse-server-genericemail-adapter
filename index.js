@@ -57,7 +57,7 @@ module.exports = function (options) {
     }
 
     var sendVerificationEmail = function ({link, user, appName}) {
-        const text =
+        const html =
         'Hi,\n\n' +
         'You are being asked to confirm the e-mail address ' +
         user.get('email') +
